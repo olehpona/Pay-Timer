@@ -5,7 +5,6 @@ export default function Popover(props) {
         
         if (ref.current && !ref.current.contains(event.target)) {
             props.setOpen(false);
-            console.log(ref.current.contains(event.target))
         }
     };
     document.addEventListener("click", handleClickOutside, true);

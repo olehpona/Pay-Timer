@@ -15,7 +15,8 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors:{
-        "gray-150": "#edeff2"
+        "gray-150": "#edeff2",
+        "modal-bg": "rgba(0, 0, 0, 0.65)"
       },
       boxShadow: {
         "neo" : "21px 21px 42px #a6a6a6, -21px -21px 42px #ffffff"

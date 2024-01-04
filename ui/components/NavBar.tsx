@@ -5,21 +5,34 @@ import { Icon } from '@iconify/react';
 import MainButton from './MainButton';
 import { useEffect, useRef, useState } from 'react';
 import Popover from './Popover';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+import { apiGateWay } from '@/libs/apiHost';
 
 export function NavBar() {
     const [isPopoverOpen, setPopoverOpen] = useState(false);
     const ref = useRef(null)
     const [isLogged, setLogged] = useState(false)
+
     useEffect(()=>{
-        axios.post("/api/user/refresh").then(res => {
-        
-            setLogged(res.data.data)
-            console.log(isLogged)
-        })
+        axios.get(apiGateWay + '/auth/fetch').then(
+            res => {
+                if (res.data.status === 'OK'){
+                    setLogged(true)
+                }
+            }
+        ).catch(
+            res => {
+                if (res.response){
+                    if (res.response.status !== 200){
+                        setLogged(false);
+                    }
+                }
+            }
+        )
     },[])
+
     return (
-        <div className="navbar bg-gray-100 w-[5%] h-full shadow-neo flex flex-col items-center text-black rounded-lg py-2">
+        <div className="navbar bg-gray-100 min-w-[86px] max-w-[86px] h-full shadow-neo flex flex-col items-center text-black rounded-lg py-2">
             <header className="h-12 w-full flex justify-center items-center">
                 <Icon icon="tabler:calendar-clock" className="h-[90%] w-[90%]" />
             </header>
